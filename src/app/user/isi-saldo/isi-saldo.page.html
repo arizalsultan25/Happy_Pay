@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">  
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="user"></ion-back-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="cash" slots="start"></ion-icon> Isi Saldo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <img src="../../../assets/img-isiSaldo.png">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Form Pengisian Saldo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">
+          Kode Saldo
+        </ion-label>
+        <ion-input [(ngModel)]="kode" type="text" maxlength="10"></ion-input>
+      </ion-item>
+      <ion-button (click)="isiSaldo()"  style="margin-top:10%" expand="full" >
+        Isi Saldo
+      </ion-button>
+    </ion-card-content>
+    </ion-card>
+</ion-content>

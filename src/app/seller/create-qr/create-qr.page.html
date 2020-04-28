@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="seller"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        <ion-icon name="qr-code" slots="start"></ion-icon> Create QR Code
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-header>
+
+<ion-content padding color="secondary">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Form Transaksi</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="qr-code"></ion-icon>
+          Masukkan Nilai Transaksi
+        </ion-label>
+        <ion-input [(ngModel)]="data.jumlah" type="number"></ion-input>
+      </ion-item>
+      <ion-button (click)="genQRCode()" style="margin-top:10%" expand="full">Generate QR Code</ion-button>
+      <ion-button (click)="clearQRCode()" style="margin-top:10%" expand="full" color="success">Clear QR Code</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="QrData">
+    <ion-card-header>
+      <ion-card-title>
+        Hasil Generate QR
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="QrData">
+      </ngx-qrcode>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

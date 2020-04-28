@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title><ion-icon name="home" slots="start"></ion-icon> Home Penjual</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-header>
+
+<ion-content padding color="secondary">
+  <ion-card padding>
+    <ion-card-content>
+      Hai ! {{email}}  <br>
+      Anda telah login sebagai Penjual <br>
+      Saldo anda adalah {{ saldo | currency : 'Rp. '}} 
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <img src="../../../assets/img/qr code.png" style="width:100%" (click)="pindahGen()">
+    
+    <ion-card-header>
+      <ion-card-title (click)="pindahGen()">Transaksi</ion-card-title>
+      <ion-card-subtitle>Membuat 10 digit kode acak untuk pengisian saldo</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card>
+    <img src="../../../assets/img/riwayat transaksi.jpg" style="width:100%" (click)="pindahGen()">
+    
+    <ion-card-header>
+      <ion-card-title (click)="pindahHistory()">Riwayat Transaksi</ion-card-title>
+      <ion-card-subtitle>Menampilkan riwayat transaksi penjual</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <h4 style="color: #52504f; margin-left: 4%;">Konfigurasi Akun</h4>
+<ion-card>
+  <ion-item href="#">
+    <ion-icon name="analytics-outline" slot="start"></ion-icon>
+    <ion-label>History</ion-label>
+  </ion-item>
+
+  <ion-item class="ion-activated"(click)="resetPw()">
+    <ion-icon name="key" slot="start"></ion-icon>
+    <ion-label>Ganti Password</ion-label>
+  </ion-item>
+
+  <ion-item (click)="logOut()">
+    <ion-icon name="log-out" slot="start"></ion-icon>
+    <ion-label>Log Out</ion-label>
+  </ion-item>
+  </ion-card>
+</ion-content>

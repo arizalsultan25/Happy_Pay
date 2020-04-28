@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" color="secondary">
+  <img src="../../assets/login-img.png">
+  <ion-item class="abu-abu">
+    <ion-label position="floating">
+      <ion-icon name="at"></ion-icon>
+      Email
+    </ion-label>
+    <ion-input type="email"  [(ngModel)]="username"></ion-input>
+  </ion-item>
+  <ion-item class="abu-abu">
+    <ion-label position="floating">
+      <ion-icon name="lock-closed"></ion-icon>
+      Password
+    </ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+  <ion-button color="primary" style="margin-top:10%" expand="full" (click)="login()">
+    <ion-icon name="enter"></ion-icon>
+    Sign In
+  </ion-button>
+  <ion-button color="success" style="margin-top:4%" expand="full" [routerLink]="['/register']">
+    <ion-icon name="person-add"></ion-icon>
+    Register
+  </ion-button>
+</ion-content>

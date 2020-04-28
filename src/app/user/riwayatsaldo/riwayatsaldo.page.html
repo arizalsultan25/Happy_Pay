@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">  
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="user"></ion-back-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="analytics-outline" slots="start"></ion-icon> Riwayat Pengisian Saldo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <ion-card>
+    <ion-item *ngFor="let item of child">
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>{{item.kode}}</h3>
+          </ion-text>
+          <p>{{item.tanggal}}</p>
+          <ion-text color="secondary">
+            <p>Jumlah : {{item.jumlah | currency : 'Rp. '}}</p>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+</ion-content>

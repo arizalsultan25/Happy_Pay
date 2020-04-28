@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="cashier"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register Seller</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [fullscreen]="true" class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">
+      <ion-icon name="at"></ion-icon>
+      Email
+    </ion-label>
+    <ion-input [(ngModel)]="email" type="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">
+      <ion-icon name="lock-closed"></ion-icon>
+      Password
+    </ion-label>
+    <ion-input [(ngModel)]="akun.password" type="password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">
+      <ion-icon name="lock-closed"></ion-icon>
+      Re-Password
+    </ion-label>
+    <ion-input [(ngModel)]="repassword" type="password"></ion-input>
+  </ion-item>
+  <ion-button color="tertiary" style="margin-top:10%" expand="full" (click)="register(akun)">Register</ion-button>
+</ion-content>

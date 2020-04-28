@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="tertiary">  
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="cashier"></ion-back-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="cash" slots="start"></ion-icon> Generate Saldo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <img src="../../../assets/img-genSaldo.png">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Generate Kode Saldo
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content padding>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="calculator"></ion-icon>
+          Jumlah Saldo
+        </ion-label>
+        <ion-input [(ngModel)]="data.jumlah" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="text"></ion-icon>
+          Kode Voucher
+        </ion-label>
+        <ion-input [(ngModel)]="kode" type="text" disabled="true"></ion-input>
+       </ion-item>
+      <ion-button color="tertiary" style="margin-top:10%" expand="full" (click)="gen()">Generate Kode</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
