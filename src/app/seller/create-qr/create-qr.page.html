@@ -25,7 +25,7 @@
         <ion-input [(ngModel)]="data.jumlah" type="number"></ion-input>
       </ion-item>
       <ion-button (click)="genQRCode()" style="margin-top:10%" expand="full">Generate QR Code</ion-button>
-      <ion-button (click)="clearQRCode()" style="margin-top:10%" expand="full" color="success">Clear QR Code</ion-button>
+      <ion-button (click)="clearQRCode()" style="margin-top:5%" expand="full" color="success">Clear QR Code</ion-button>
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="QrData">
@@ -35,7 +35,7 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="QrData">
+      <ngx-qrcode [qrc-element-type]="img" [qrc-value]="QrData">
       </ngx-qrcode>
     </ion-card-content>
   </ion-card>

@@ -30,6 +30,9 @@
         </ion-label>
         <ion-input [(ngModel)]="kode" type="text" disabled="true"></ion-input>
        </ion-item>
+       <ion-item>
+         <ion-label>Kode : {{kode}}</ion-label>
+       </ion-item>
       <ion-button color="tertiary" style="margin-top:10%" expand="full" (click)="gen()">Generate Kode</ion-button>
     </ion-card-content>
   </ion-card>

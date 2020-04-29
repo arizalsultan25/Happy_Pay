@@ -56,6 +56,14 @@ const routes: Routes = [
     loadChildren: () => import('./user/riwayatsaldo/riwayatsaldo.module').then( m => m.RiwayatsaldoPageModule)
   },
   { path: 'transaksi', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  {
+    path: 'riwayat-saldo',
+    loadChildren: () => import('./user/riwayat-saldo/riwayat-saldo.module').then( m => m.RiwayatSaldoPageModule)
+  },
+  {
+    path: 'riwayat-transaksi',
+    loadChildren: () => import('./user/riwayat-transaksi/riwayat-transaksi.module').then( m => m.RiwayatTransaksiPageModule)
+  },
 ];
 
 @NgModule({

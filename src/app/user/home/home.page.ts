@@ -93,8 +93,12 @@ export class HomePage implements OnInit {
     this.route.navigate(['/isi-saldo'])
   }
 
+  pindahHistoryTransaksi(){
+    this.route.navigate(['/riwayat-transaksi'])
+  }
+
   pindahHistorySaldo(){
-    this.route.navigate(['/riwayatsaldo'])
+    this.route.navigate(['/riwayat-saldo'])
   }
 
   pindahScan() {

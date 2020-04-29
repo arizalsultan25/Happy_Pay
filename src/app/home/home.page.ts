@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { ToastController } from '@ionic/angular';
-import { Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase'
-import {snapshotToArray} from '../../environments/environment'
+import { snapshotToArray } from '../../environments/environment'
 
 @Component({
   selector: 'app-home',
@@ -21,27 +21,45 @@ export class HomePage {
   constructor(private barcodeScanner: BarcodeScanner, private base64ToGallery: Base64ToGallery, private toastCtrl: ToastController,
     private afDb: AngularFireDatabase,
     private str: Storage) {
-      this.getUID()
-    }
+    this.getUID()
+  }
 
+  hasil = null
   scanCode() {
     this.barcodeScanner.scan().then(
       barcodeData => {
-        this.scannedCode = barcodeData;
+        this.scannedCode = barcodeData.text;
         this.hasilScan = JSON.parse(this.scannedCode);
+
       }
     )
   }
 
+  async test() {
+    this.hasilScan = {
+      jumlah: 10000,
+      penjual: 'fZUOZus3NIWguA6mL4jFYowzUex2',
+      tanggal: '2020, Apr 20'
+    }
+    this.scannedCode = JSON.stringify(this.hasilScan)
+    this.hasilScan = await JSON.parse(this.scannedCode)
+    console.log(this.scannedCode)
+    console.log(this.hasilScan)
+  }
+  testa
 
-  hasilScan = null
+  hasilScan = {
+    jumlah: null,
+    penjual: null,
+    tanggal: null
+  }
   uid
 
-  clear(){
+  clear() {
     this.hasilScan = null
   }
 
-  getUID(){
+  getUID() {
     this.uid = this.str.get('key').then(hasil => {
       this.uid = hasil
       var ref = firebase.database().ref('profile/' + this.uid)
@@ -56,44 +74,53 @@ export class HomePage {
   }
 
   saldo
-  async verifQR(){
-    var kurang = this.saldo - this.hasilScan.jumlah
+  async verifQR() {
+    if (this.saldo >= this.hasilScan.jumlah) {
+      var kurang = this.saldo - this.hasilScan.jumlah
 
-    //kurangi saldo akun
-    await firebase.database().ref(`profile/${this.uid}`).update({ saldo: kurang })
+      //kurangi saldo akun
+      await firebase.database().ref(`profile/${this.uid}`).update({ saldo: kurang })
 
-    //add saldo penjual
-    var uidseller = this.hasilScan.penjual
-    //get saldo penjual
-    var ref = firebase.database().ref('profile/' + uidseller)
+      //add saldo penjual
+      var uidseller = this.hasilScan.penjual
+      //get saldo penjual
+      var ref = firebase.database().ref('profile/' + uidseller + '/')
+      var saldoseller
 
-    ref.on('value', async respon => {
-      let data = snapshotToArray(respon)
-      var saldoseller = data[2]
+      ref.on('value', respon => {
+        let data = snapshotToArray(respon)
+        saldoseller = data[2]
+        console.log('data=' + data)
+        console.log(saldoseller + ' ' + this.hasilScan.jumlah)
+      })
+
       //tambah saldo penjual
       var tambahsaldo = saldoseller + this.hasilScan.jumlah
+      console.log(tambahsaldo + ' ' + saldoseller + ' ' + this.hasilScan.jumlah)
       await firebase.database().ref(`profile/${uidseller}`).update({ saldo: tambahsaldo })
-    })
-  
-    //add history pembeli
-    await firebase.database().ref(`riwayat/${this.uid}/transaksi/`).push({
-      uid_penjual: uidseller,
-      jumlah : this.hasilScan.jumlah,
-      tanggal : this.hasilScan.tanggal
-    })
 
-    //add history penjual
-    await firebase.database().ref(`riwayat/${uidseller}/transaksi/`).push({
-      uid_pembeli: this.uid ,
-      jumlah : this.hasilScan.jumlah,
-      tanggal : this.hasilScan.tanggal
-    })
+      //add history pembeli
+      await firebase.database().ref(`riwayat/${this.uid}/transaksi/`).push({
+        uid_penjual: uidseller,
+        jumlah: this.hasilScan.jumlah,
+        tanggal: this.hasilScan.tanggal
+      })
 
-    this.pesan('Transaksi berhasil')
-    this.clear()
+      //add history penjual
+      await firebase.database().ref(`riwayat/${uidseller}/transaksi/`).push({
+        uid_pembeli: this.uid,
+        jumlah: this.hasilScan.jumlah,
+        tanggal: this.hasilScan.tanggal
+      })
+
+      this.pesan('Transaksi berhasil')
+      this.clear()
+    } else {
+      this.pesan('Saldo anda tidak cukup, saldo tersisa adalah ' + this.saldo)
+    }
   }
-  
-  async pesan(msg){
+
+  async pesan(msg) {
     var n = await this.toastCtrl.create({
       message: msg,
       duration: 2000
@@ -102,7 +129,7 @@ export class HomePage {
   }
 
   downloadQR() {
-    const canvas =document.querySelector('canvas') as HTMLCanvasElement;
+    const canvas = document.querySelector('canvas') as HTMLCanvasElement;
     const imageData = canvas.toDataURL('image/jpeg').toString();
     console.log('data: ', imageData);
 
@@ -115,10 +142,10 @@ export class HomePage {
           header: 'QR Code saver in your Photolibrary'
         });
         toast.present();
-      }, err=> console.log('err: ', err)
+      }, err => console.log('err: ', err)
       );
 
-    
+
 
 
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AngularFireDatabase } from '@angular/fire/database';
 
-
 import * as firebase from 'firebase';
 import { snapshotToArray } from 'src/environments/environment';
 

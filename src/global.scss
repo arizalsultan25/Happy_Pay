@@ -24,3 +24,13 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+//font
+@font-face{
+    font-family: AppFont;
+    src: url("./assets/fonts/AbeeZee.otf");
+  }
+  
+  body, span, button, h1, h2, h3, h4, h5, h6, ion-title, p , ion-label, ion-input, ion-card-title{
+    font-family: 'AppFont' !important;
+  }

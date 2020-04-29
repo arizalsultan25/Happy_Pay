@@ -1,29 +1,36 @@
 <ion-header>
-  <ion-toolbar color="primary">  
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="user"></ion-back-button>
     </ion-buttons>
-    <ion-title><ion-icon name="cashier" slots="start"></ion-icon> Transaksi</ion-title>
+    <ion-title>
+      <ion-icon name="cashier" slots="start"></ion-icon> Transaksi
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-card padding>
-    <ion-button (click)="scanCode()" style="margin-top:10%" expand="full">Scan QR Code</ion-button>
-    <ion-button (click)="clearCode()" style="margin-top:5%" expand="full" color="success">Clear Result</ion-button>
+    <ion-card-content>
+      <ion-button (click)="scanCode()" style="margin-top:10%" expand="full">Scan QR Code</ion-button>
+      <ion-button (click)="clear()" style="margin-top:5%" expand="full" color="success">Clear Result</ion-button>
+      <!--<ion-button (click)="test()" style="margin-top:5%" expand="full" color="success">testClear Result</ion-button>-->
+    </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="hasilScan" padding>
+
+  <ion-card padding>
     <ion-card-header>
       <ion-card-title>
         Hasil Scan
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
-        UID Penjual : {{hasilScan.penjual}} <br>
-        Jumlah : {{hasilScan.jumlah}} <br>
-        Tanggal : {{hasilScan.tanggal}}
-      </ion-item>
+
+      Hasil scan scannedcode = {{scannedCode}} <br> <br>
+      UID Penjual : {{hasilScan.penjual}} <br>
+      Jumlah : {{hasilScan.jumlah}} <br>
+      Tanggal : {{hasilScan.tanggal}} <br>
+
       <ion-button (click)="verifQR()" style="margin-top:10%" expand="full">Verifikasi Transaksi</ion-button>
     </ion-card-content>
   </ion-card>

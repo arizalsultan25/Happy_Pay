@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 //Storage
 import { Storage } from '@ionic/storage';
 
+//QR Code
+
 
 @Component({
   selector: 'app-create-qr',
@@ -49,8 +51,8 @@ export class CreateQrPage implements OnInit {
     console.log(this.data.penjual)
   }
 
-  genQRCode(){
-   this.QrData = JSON.stringify(this.data) 
+  async genQRCode(){
+   this.QrData =await JSON.stringify(this.data) 
    console.log(this.QrData)
   }
 
