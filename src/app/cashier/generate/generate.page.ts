@@ -47,7 +47,7 @@ export class GeneratePage implements OnInit {
     pesan.present()
   }
 
-  gen() {
+  async gen() {
     var res = ''
     var karakter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     var panjang = karakter.length
@@ -65,10 +65,10 @@ export class GeneratePage implements OnInit {
     this.data.jam = this.currentDate.getHours() + ":" + this.currentDate.getMinutes() + ":" + this.currentDate.getSeconds();
 
     //insert to AF
-    this.afDb.object(`voucher/${this.data.kode}/`).set(this.data)
+    await this.afDb.object(`voucher/${this.data.kode}/`).set(this.data)
 
     //insert to history penjualan
-    this.afDb.object(`penjualan_voucher/${this.data.kode}/`).set(this.data)
+    await this.afDb.object(`penjualan_voucher/${this.data.kode}/`).set(this.data)
 
     //notf
     this.notif('Saldo sebesar Rp. ' + this.data.jumlah + ' telah di generate')

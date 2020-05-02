@@ -16,13 +16,15 @@ export class RiwayatSaldoPage implements OnInit {
     private str: Storage,
     private afDB: AngularFireDatabase
   ) {
-    this.getUid()
-    this.getData(this.uid)
+    this.getData()
   }
 
   ngOnInit() {
-    this.getUid()
-    this.getData(this.uid)
+    this.getData()
+  }
+
+  ionViewWillEnter(){
+    this.getData()
   }
 
   uid
@@ -36,14 +38,14 @@ export class RiwayatSaldoPage implements OnInit {
   data
   dbs
   child
-
-  async getData(id) {
-
-    this.dbs =await firebase.database().ref('riwayat/'+id+'/isi_saldo/').on('value', resp => {
-      this.child = snapshotToArray(resp)
-      console.log(this.uid)
-      console.log(this.child)
-      console.log(this.getUid())
-    })
-  }
+  key 
+  async getData() {
+      await this.str.get('key').then(hasil => {
+        this.key = hasil
+      }) 
+       
+      this.dbs = await  firebase.database().ref(`riwayat/${this.key}/isi_saldo`).on('value', resp => {
+         this.child = snapshotToArray(resp)
+     })
+   }
 }

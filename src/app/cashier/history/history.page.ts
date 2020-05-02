@@ -23,6 +23,10 @@ export class HistoryPage implements OnInit {
     this.getData()
   }
 
+ ionViewWillEnter(){
+   this.getData()
+ } 
+
   data
   dbs
   child

@@ -25,7 +25,7 @@
   </ion-card>
 
   <ion-card>
-    <img src="../../../assets/img/riwayat transaksi.jpg" style="width:100%" (click)="pindahGen()">
+    <img src="../../../assets/img/riwayat transaksi.jpg" style="width:100%" (click)="pindahHistory()">
     
     <ion-card-header>
       <ion-card-title (click)="pindahHistory()">Riwayat Transaksi</ion-card-title>
@@ -35,11 +35,6 @@
 
   <h4 style="color: #52504f; margin-left: 4%;">Konfigurasi Akun</h4>
 <ion-card>
-  <ion-item href="#">
-    <ion-icon name="analytics-outline" slot="start"></ion-icon>
-    <ion-label>History</ion-label>
-  </ion-item>
-
   <ion-item class="ion-activated"(click)="resetPw()">
     <ion-icon name="key" slot="start"></ion-icon>
     <ion-label>Ganti Password</ion-label>

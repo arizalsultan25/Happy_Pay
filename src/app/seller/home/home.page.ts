@@ -96,6 +96,10 @@ export class HomePage implements OnInit {
     this.route.navigate(['/create-qr'])
   }
 
+  pindahHistory(){
+    this.route.navigate(['/sell-history'])
+  }
+
   async notif(msg){
     var pesan = await this.toast.create({
       message : msg,
