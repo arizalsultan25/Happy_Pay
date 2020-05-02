@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { snapshotToArray } from '../../../environments/environment';
 import { AngularFireDatabase } from '@angular/fire/database'
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,8 @@ export class HomePage implements OnInit {
     private route: Router,
     private toast : ToastController,
     private alert :AlertController,
+    private afAuth : AngularFireAuth,
+
   ) { 
     this.getEmail()
     this.getSaldo()
@@ -85,7 +88,8 @@ export class HomePage implements OnInit {
     })
   }
 
-  logOut(){
+  async logOut(){
+    await this.afAuth.signOut()
     this.str.clear()
     this.notif('akun telah berhasil logout');
     this.route.navigate(['/login']);

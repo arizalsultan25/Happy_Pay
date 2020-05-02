@@ -20,7 +20,8 @@ export class HomePage {
 
   constructor(private barcodeScanner: BarcodeScanner, private base64ToGallery: Base64ToGallery, private toastCtrl: ToastController,
     private afDb: AngularFireDatabase,
-    private str: Storage) {
+    private str: Storage,  
+  ) {
     this.getUID()
   }
 

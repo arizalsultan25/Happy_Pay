@@ -72,6 +72,7 @@ export class RegisterPage implements OnInit {
   }
 
   async createData(){
+    await this.fAuth.signOut()
     const prof = await this.fAuth.signInWithEmailAndPassword(this.akun.email, this.akun.password)
     this.fAuth.authState.subscribe(auth =>{
       this.dDb.object(`profile/${auth.uid}`).set(this.akun)
