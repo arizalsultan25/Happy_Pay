@@ -4,6 +4,7 @@ import { NavController, ToastController, AlertController } from '@ionic/angular'
 import { Router } from '@angular/router';
 import * as firebase from 'firebase'
 import { async } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomePage implements OnInit {
     private nav: NavController,
     private route: Router,
     private toast: ToastController,
-    private alert: AlertController
+    private alert: AlertController,
+    private afAuth: AngularFireAuth
     ) {
     this.getEmail()
   }
@@ -72,7 +74,8 @@ export class HomePage implements OnInit {
     this.route.navigate(['/regis-seller'])
   }
 
-  logOut() {
+  async logOut() {
+    await this.afAuth.signOut()
     this.str.clear()
     this.route.navigate(['/login']);
     this.notif('akun telah berhasil logout');
