@@ -79,9 +79,6 @@ export class HomePage {
     if (this.saldo >= this.hasilScan.jumlah) {
       var kurang = this.saldo - this.hasilScan.jumlah
 
-      //kurangi saldo akun
-      await firebase.database().ref(`profile/${this.uid}`).update({ saldo: kurang })
-
       //add saldo penjual
       var uidseller = this.hasilScan.penjual
       //get saldo penjual
@@ -114,6 +111,9 @@ export class HomePage {
         tanggal: this.hasilScan.tanggal
       })
 
+      //kurangi saldo akun
+      await firebase.database().ref(`profile/${this.uid}`).update({ saldo: kurang })
+      
       this.pesan('Transaksi berhasil')
       this.clear()
     } else {

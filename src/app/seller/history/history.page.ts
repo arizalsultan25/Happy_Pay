@@ -34,9 +34,10 @@ export class HistoryPage implements OnInit {
   async getData(){
    await this.str.get('key').then(hasil => {
      this.key = hasil
+     console.log("key="+this.key)
    }) 
     
-   this.dbs = await  firebase.database().ref(`riwayat/${this.key}/transaksi`).on('value', resp => {
+   this.dbs = await  firebase.database().ref(`riwayat/${this.key}/transaksi/`).on('value', resp => {
       this.child = snapshotToArray(resp)
   })
 }
