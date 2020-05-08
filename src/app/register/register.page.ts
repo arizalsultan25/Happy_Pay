@@ -63,7 +63,7 @@ export class RegisterPage implements OnInit {
         
         //get UID & create user data
         this.createData()
-        
+        await this.fAuth.signOut()
         this.pesan('Akun telah berhasil didaftarkan')
       } catch (e) {
         this.pesan('error : ' + e)

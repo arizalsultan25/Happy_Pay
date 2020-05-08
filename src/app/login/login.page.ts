@@ -57,6 +57,7 @@ ref;
 
           this.store.set('email',val.email);
           this.store.set('saldo',val.saldo)
+          this.store.set('pw',this.password)
           
           if(val.akses=='Customer'){
             console.log('anda adalah customer')
@@ -67,6 +68,7 @@ ref;
             this.route.navigate(['/seller'])
           }else{
             console.log('Anda adalah kasir')
+           
             this.route.navigate(['/cashier'])
           }
         })
