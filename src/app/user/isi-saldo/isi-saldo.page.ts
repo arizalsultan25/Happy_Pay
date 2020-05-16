@@ -4,7 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Storage } from '@ionic/storage';
 import * as firebase from 'firebase';
-import { snapshotToArray } from 'src/environments/environment';
+import { snapshotToArray } from 'src/environments/environment'
 
 @Component({
   selector: 'app-isi-saldo',

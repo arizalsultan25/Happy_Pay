@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 //firebase
 import * as firebase from 'firebase';
 import { snapshotToArray } from '../../environments/environment';
-import { NavController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, LoadingController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { User } from '../../models/user.model'
@@ -36,7 +36,8 @@ ref;
     private afAuth: AngularFireAuth,
     private adDb: AngularFireDatabase,
     private store : Storage,
-    private route:Router
+    private route:Router,
+    private loading: LoadingController
   ) { }
 
   ngOnInit() {
@@ -45,32 +46,46 @@ ref;
     akses:null
   }]
 
+  async setvalue(a){
+    this.hak = a
+  }
+
+  async load(){
+    var n =  await this.loading.create({
+      duration:3000,
+    })
+    n.present()
+  }
+
+
+	hak
   async login() {
     try {
       const res = await this.afAuth.signInWithEmailAndPassword(this.username, this.password)
-      this.afAuth.onAuthStateChanged(auth => {
+      this.afAuth.onAuthStateChanged(async auth => {
        this.token = auth.uid;
        this.store.set('key', auth.uid);
        console.log('auth token = '+auth.uid) 
-       this.ref = firebase.database().ref(`profile/${auth.uid}`).on('value', resp => {
-          var val = resp.val()
+       this.ref = firebase.database().ref(`profile/${auth.uid}`).on('value', async resp => {
+         var val = resp.val();
 
-          this.store.set('email',val.email);
-          this.store.set('saldo',val.saldo)
-          
-          if(val.akses=='Customer'){
-            console.log('anda adalah customer')
-            this.route.navigate(['/user'])
-
-          }else if(val.akses=='Seller'){
-            console.log('Anda adalah seller')
-            this.route.navigate(['/seller'])
-          }else{
-            console.log('Anda adalah kasir')
-            this.route.navigate(['/cashier'])
-          }
-        })
+         await this.setvalue(resp.val().akses)
+         this.store.set('email', val.email);
+         this.store.set('saldo', val.saldo);
+       })
       })
+      
+      await this.load()
+      if(this.hak=='Customer'){
+        console.log('Kostumer')
+        this.route.navigate(['/user'])
+      }else if(this.hak=='Seller'){
+        console.log('Penjual')
+        this.route.navigate(['/seller'])
+      }else if(this.hak=='Cashier'){
+        console.log('Kasir')
+        this.route.navigate(['/cashier'])
+      }
       this.clear()
       this.notif('Login Berhasil')
     } catch (e) {
