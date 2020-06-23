@@ -30,79 +30,100 @@ export class LoginPage implements OnInit {
   token;
   akses = 'kosong'
   profile: AngularFireObject<User>
-ref;
+  ref;
 
   constructor(private toast: ToastController,
     private afAuth: AngularFireAuth,
     private adDb: AngularFireDatabase,
-    private store : Storage,
-    private route:Router,
+    private store: Storage,
+    private route: Router,
     private loading: LoadingController
   ) { }
 
   ngOnInit() {
   }
   list = [{
-    akses:null
+    akses: null
   }]
 
-  async setvalue(a){
+  async setvalue(a) {
     this.hak = a
   }
 
-  async load(){
-    var n =  await this.loading.create({
-      duration:3000,
+  async load() {
+    var n = await this.loading.create({
+      duration: 3000,
+      message: "Load data user",
     })
     n.present()
   }
 
 
-	hak
+  hak
+  haks
   async login() {
     try {
       const res = await this.afAuth.signInWithEmailAndPassword(this.username, this.password)
       this.afAuth.onAuthStateChanged(async auth => {
-       this.token = auth.uid;
-       this.store.set('key', auth.uid);
-       console.log('auth token = '+auth.uid) 
-       this.ref = firebase.database().ref(`profile/${auth.uid}`).on('value', async resp => {
-         var val = resp.val();
+        this.token = auth.uid;
+        this.store.set('key', auth.uid);
+        console.log('auth token = ' + auth.uid)
+        this.ref = firebase.database().ref(`profile/${auth.uid}`).on('value', async resp => {
+          var val = resp.val();
 
-         await this.setvalue(resp.val().akses)
-         this.store.set('email', val.email);
-         this.store.set('saldo', val.saldo);
-       })
+          this.haks = val.akses
+          this.hak = this.haks
+          
+          if (this.hak == 'Customer') {
+            console.log('Kostumer')
+            this.route.navigate(['/user'])
+          } else if (this.hak == 'Seller') {
+            console.log('Penjual')
+            this.route.navigate(['/seller'])
+          } else if (this.hak == 'Cashier') {
+            console.log('Kasir')
+            this.route.navigate(['/cashier'])
+          }
+
+          await this.setvalue(resp.val().akses)
+
+          this.store.set('email', val.email);
+          this.store.set('saldo', val.saldo);
+        })
+
+        this.hak = this.haks
       })
-      
+
+      this.hak = this.haks
+    
+
       await this.load()
-      if(this.hak=='Customer'){
-        console.log('Kostumer')
-        this.route.navigate(['/user'])
-      }else if(this.hak=='Seller'){
-        console.log('Penjual')
-        this.route.navigate(['/seller'])
-      }else if(this.hak=='Cashier'){
-        console.log('Kasir')
-        this.route.navigate(['/cashier'])
-      }
+
       this.clear()
       this.notif('Login Berhasil')
     } catch (e) {
       console.log(e)
-      this.notif(e)
+      if (e.code == "auth/invalid-email") {
+        this.notif("Format email salah")
+      } else if (e.code == "auth/wrong-password" || e.code == "auth/user-not-found") {
+        this.notif("Email atau password salah")
+      } else if (e.code == "auth/argument-wrong") {
+        this.notif("Email atau password tidak boleh kosong")
+      } else {
+        this.notif(e)
+      }
     }
   }
 
-  clear(){
+  clear() {
     this.username = null
     this.password = null
   }
 
   async notif(pesan) {
-    var msg =await this.toast.create({
-      message:pesan,
-      duration:2000
+    var msg = await this.toast.create({
+      message: pesan,
+      duration: 2000
     })
     msg.present()
   }
